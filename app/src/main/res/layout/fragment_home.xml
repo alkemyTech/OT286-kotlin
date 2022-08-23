@@ -65,6 +65,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_novedades" />
 
+                <include
+                    android:id="@+id/progressBarForTest"
+                    layout="@layout/spinner_loading"
+                    android:visibility="gone" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
