@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
     private lateinit var novedadAdapter: NovedadAdapter
     private var adapter = ListAdapter()
     private var dataslide = mutableListOf<WelcomeImage>()
-    private val viewModel : OngViewModel by activityViewModels(
+    private val viewModel: OngViewModel by activityViewModels(
         factoryProducer = { OngViewModelFactory() }
     )
 
@@ -81,14 +81,15 @@ class HomeFragment : Fragment() {
 
         binding?.let { it ->
             it.cardTestimonios.apply {
-                bindTestimonio(cardTestimonio1, list[0])
-                bindTestimonio(cardTestimonio2, list[1])
-                bindTestimonio(cardTestimonio3, list[2])
-                bindTestimonio(cardTestimonio4, list[3])
+                bindTestimonio(configTestimonios(),list[0])
+                bindTestimonio(configTestimonios(), list[1])
+                bindTestimonio(configTestimonios(), list[2])
+                bindTestimonio(configTestimonios(), list[3])
             }
         }
 
     }
+
 
     /**
      * configura todos los observadores que se asocian al fragment
@@ -166,38 +167,33 @@ class HomeFragment : Fragment() {
 
 
     fun loadSlide() {
-            CoroutineScope(Dispatchers.Main).launch {
-                val servicio = AlkemyAPIClient.getClient().getData().body()
-                val data = servicio?.data
-                dataslide.clear()
-                if (data != null) {
-                    dataslide.addAll(data)
-                    adapter.loadDataSlide(dataslide)
-                }
+        CoroutineScope(Dispatchers.Main).launch {
+            val servicio = AlkemyAPIClient.getClient().getData().body()
+            val data = servicio?.data
+            dataslide.clear()
+            if (data != null) {
+                dataslide.addAll(data)
+                adapter.loadDataSlide(dataslide)
             }
         }
+    }
 
-        fun onLoadError(message: String, retryRecycler: () -> Unit) {
-            binding?.let {
-                Snackbar.make(it.root, message, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(resources.getString(R.string.retry)) { retryRecycler() }
-                    .show()
-            }
+    fun onLoadError(message: String, retryRecycler: () -> Unit) {
+        binding?.let {
+            Snackbar.make(it.root, message, Snackbar.LENGTH_INDEFINITE)
+                .setAction(resources.getString(R.string.retry)) { retryRecycler() }
+                .show()
         }
-        fun configLists() {
+    }
+
+    fun configLists() {
 
 
-        }
-
-
-        override fun onDestroyView() {
-            super.onDestroyView()
-            binding = null
-        }
+    }
 
 
     // Carga la lista en recycler de slider
-    private fun cargaListaSlide(){
+    private fun cargaListaSlide() {
 
         binding?.let { binding ->
             binding.rvWelcome.adapter = adapter
@@ -205,36 +201,38 @@ class HomeFragment : Fragment() {
 
         viewModel.loadSlide()
 
-        viewModel.listaSlide.observe(viewLifecycleOwner){try {
+        viewModel.listaSlide.observe(viewLifecycleOwner) {
+            try {
 
 
-           viewModel.listaSlide.value?.let { it1 -> adapter.loadDataSlide(it1) }
-        }catch (e : Exception){
-            adapter.loadDataSlide(emptyList())
-        } }
+                viewModel.listaSlide.value?.let { it1 -> adapter.loadDataSlide(it1) }
+            } catch (e: Exception) {
+                adapter.loadDataSlide(emptyList())
+            }
+        }
     }
 
     // Carga la lista en recycler de novedad
 
-    private fun cargaListaNovedades(){
+    private fun cargaListaNovedades() {
 
         binding?.let { binding ->
-            binding.rvNovedades.apply { adapter = novedadAdapter
+            binding.rvNovedades.apply {
+                adapter = novedadAdapter
             }
         }
 
         viewModel.loadNovedades()
 
-                viewModel.listaNovedad.observe(viewLifecycleOwner) {try {
+        viewModel.listaNovedad.observe(viewLifecycleOwner) {
+            try {
 
-                  viewModel.listaNovedad.value?.let { it1 -> novedadAdapter.actualizarData(it1) }
-                }catch (e : Exception){
-                      novedadAdapter.actualizarData(emptyList())
-                 }
-                }
+                viewModel.listaNovedad.value?.let { it1 -> novedadAdapter.actualizarData(it1) }
+            } catch (e: Exception) {
+                novedadAdapter.actualizarData(emptyList())
+            }
+        }
     }
-
-
 
 
     override fun onDestroyView() {
@@ -243,5 +241,6 @@ class HomeFragment : Fragment() {
 
 
     }
+}
 
 

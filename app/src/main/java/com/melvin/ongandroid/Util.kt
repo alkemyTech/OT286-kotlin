@@ -7,7 +7,7 @@ import com.melvin.ongandroid.model.Testimonio
 /**
  * enlaza el objeto "cardItemTestimonios" con el "testimonio" pasados como argumentos {
  */
-fun bindTestimonio(cardItemTestimonios: CardviewItemTestimonioBinding, item: Testimonio){
+fun bindTestimonio(cardItemTestimonios: Unit, item: Testimonio){
 
     //paso el objeto Testimonio al dataBinding
     cardItemTestimonios.testimonio = item
