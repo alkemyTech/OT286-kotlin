@@ -10,6 +10,7 @@ import com.melvin.ongandroid.model.Testimonio
 fun bindTestimonio(cardItemTestimonios: Unit, item: Testimonio){
 
     //paso el objeto Testimonio al dataBinding
+
     cardItemTestimonios.testimonio = item
 
     //descargo la imagen con Glide y la muestro en la ImageView
