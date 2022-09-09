@@ -56,7 +56,7 @@ class AdapterListNosotros: RecyclerView.Adapter<AdapterListNosotros.PersonalHold
     }
 
     override fun itemClick(position: Int) {
-        TODO("Not yet implemented")
+
     }
 
 }
