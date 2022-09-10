@@ -52,8 +52,6 @@ object FirebaseLog{
     }
 
 
-
-
     fun logMiembrosSuccess(){
         Firebase.analytics.logEvent("members_retrieve_success"){
             param("log_miembros", "Log Miembros")
@@ -71,6 +69,26 @@ object FirebaseLog{
     fun logMiembrosClisk(){
         Firebase.analytics.logEvent("member_pressed"){
             param("text", "Member pressed")
+        }
+    }
+
+    fun logSignupClick(){
+        Firebase.analytics.logEvent("register_pressed"){
+            param("text", "Register pressed")
+        }
+    }
+
+    fun logSignupSuccess(){
+        Firebase.analytics.logEvent("sign_up_success"){
+            param("log_sign_up", "Log_sign_up")
+            param("text", "La conexión con el servidor fue satisfactoria.")
+        }
+    }
+
+    fun logSignupError(){
+        Firebase.analytics.logEvent("sign_up_error"){
+            param("log_sign_up", "Log_sign_up")
+            param("text", "La conexión con el servidor no pudo ser establecida.")
         }
     }
 
